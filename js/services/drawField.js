@@ -35,13 +35,31 @@ function checkWinner(target) {
     return;
   }
 
-  const diagonal = [];
+  const topLeftToBottomRightDiagonal = [];
   const length = document.querySelectorAll('[data-col="0"]').length;
   for (let i = 0; i < length; i++) {
     const selector = document.querySelector(`[data-col="${i}"][data-row="${i}"]`);
-    diagonal.push(selector);
+    topLeftToBottomRightDiagonal.push(selector);
   }
-  if (Array.from(diagonal).every((item) => item.innerText === target.innerText)) {
+  if (
+    Array.from(topLeftToBottomRightDiagonal).every((item) => item.innerText === target.innerText)
+  ) {
+    alert('Winner is: ' + target.innerText);
+    return;
+  }
+
+  const topRightToBottomLeftDiagonal = [];
+  let col = 0;
+  let row = length - 1;
+  while (col <= length && row >= 0) {
+    const selector = document.querySelector(`[data-col="${col}"][data-row="${row}"]`);
+    topRightToBottomLeftDiagonal.push(selector);
+    row--;
+    col++;
+  }
+  if (
+    Array.from(topRightToBottomLeftDiagonal).every((item) => item.innerText === target.innerText)
+  ) {
     alert('Winner is: ' + target.innerText);
     return;
   }
